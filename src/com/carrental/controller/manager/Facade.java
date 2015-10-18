@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.carrental.model.Rental;
+
 /**
  * This class is used to become the bridge of the data manager
  * and the front-end.
@@ -16,6 +18,9 @@ import java.sql.SQLException;
  */
 public class Facade implements AutoCloseable {
 	private Connection connection;
+	private CarManager carManager;
+	private CustomerManager customerManager;
+	private RentalManager rentalManager;
 	
 	public Facade() throws ClassNotFoundException, SQLException {
 		// Load the database driver to the program
