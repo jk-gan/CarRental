@@ -42,17 +42,26 @@ public class Facade implements AutoCloseable {
 		connection.close();
 	}
 	
-	// Get CarManager
+	/**
+	 * Get CarManager
+	 * @return
+	 */
 	private CarManager getCarManager() {
 		return (carManager == null ? carManager = new CarManager(this) : carManager );
 	}
 	
-	// Get CustomerManager
+	/**
+	 * Get CustomerManager
+	 * @return
+	 */
 	private CustomerManager getCustomerManager() {
 		return (customerManager == null ? customerManager = new CustomerManager(this) : customerManager );
 	}
 	
-	// Get RentalManager
+	/**
+	 * Get RentalManager
+	 * @return
+	 */
 	private RentalManager getRentalManager() {
 		return (rentalManager == null ? rentalManager = new RentalManager(this) : rentalManager );
 	}
