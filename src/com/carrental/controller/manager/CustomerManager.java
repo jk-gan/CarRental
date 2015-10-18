@@ -19,12 +19,12 @@ import com.carrental.model.Customer;
  * @version 1.0
  * @since 1.0
  */
-class CustomerManager {
+class CustomerManager extends AbstractTableManager {
 	
 	private Facade facade;
 	
 	CustomerManager(Facade facade) {
-		this.facade = facade;
+		super(facade);
 	}	
 	
 	int addCustomer(Customer customer) throws SQLException {
@@ -146,25 +146,25 @@ class CustomerManager {
 		return customers;
 	}
 	
-	static void main(String[] args) throws ClassNotFoundException, SQLException {
-//		Customer customer = new Customer();
-//		
-//		customer.setName("Gan Jun Xian");
-//		customer.setIdentityCardNo("931225034133");
-//		customer.setPhoneNo("0123214569");
+//	static void main(String[] args) throws ClassNotFoundException, SQLException {
+////		Customer customer = new Customer();
+////		
+////		customer.setName("Gan Jun Xian");
+////		customer.setIdentityCardNo("931225034133");
+////		customer.setPhoneNo("0123214569");
+////		
+////		CustomerManager customerManager = new CustomerManager();
+////		int status = customerManager.addCustomer(customer);
+//////		
+////		System.out.println("Customer saved with ID " + status);
 //		
 //		CustomerManager customerManager = new CustomerManager();
-//		int status = customerManager.addCustomer(customer);
-////		
-//		System.out.println("Customer saved with ID " + status);
-		
-		CustomerManager customerManager = new CustomerManager();
-		Vector<Customer> customers = customerManager.searchCustomers("931225");
-		
-		for(Customer customer : customers) {
-			System.out.println(customer);
-		}
-	}
+//		Vector<Customer> customers = customerManager.searchCustomers("931225");
+//		
+//		for(Customer customer : customers) {
+//			System.out.println(customer);
+//		}
+//	}
 }
 
 

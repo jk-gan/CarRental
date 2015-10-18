@@ -18,15 +18,15 @@ import com.carrental.model.Rental;
  * @version 1.0
  * @since 1.0
  */
-public class RentalManager {
+class RentalManager extends AbstractTableManager {
 	
 	private Facade facade;
 	
-	public RentalManager(Facade facade) {
-		this.facade = facade;
+	RentalManager(Facade facade) {
+		super(facade);
 	}	
 	
-	public int addRental(Rental rental) throws SQLException {
+	int addRental(Rental rental) throws SQLException {
 		// Status of execution
 		int status = 0;
 		
@@ -71,26 +71,26 @@ public class RentalManager {
 		return status;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		Rental rental = new Rental();
-		Calendar rentalStart = Calendar.getInstance();
-		Calendar rentalEnd = Calendar.getInstance();
-		
-		rentalStart.set(2015, 9, 17, 16, 0, 0);
-		rentalEnd.set(2015, 9, 16, 16, 0, 0);
-		
-		rental.setCarID(1);
-		rental.setCustomerID(2);
-		rental.setRentalStart(rentalStart);
-		rental.setRentalEnd(rentalEnd);
-		rental.setAmount(500);
-		
-		RentalManager rentalManager = new RentalManager();
-		int status = rentalManager.addRental(rental);
-		
-		System.out.println("Rental saved with ID " + status);
-		
-	}
+//	static void main(String[] args) throws ClassNotFoundException, SQLException {
+//		Rental rental = new Rental();
+//		Calendar rentalStart = Calendar.getInstance();
+//		Calendar rentalEnd = Calendar.getInstance();
+//		
+//		rentalStart.set(2015, 9, 17, 16, 0, 0);
+//		rentalEnd.set(2015, 9, 16, 16, 0, 0);
+//		
+//		rental.setCarID(1);
+//		rental.setCustomerID(2);
+//		rental.setRentalStart(rentalStart);
+//		rental.setRentalEnd(rentalEnd);
+//		rental.setAmount(500);
+//		
+//		RentalManager rentalManager = new RentalManager();
+//		int status = rentalManager.addRental(rental);
+//		
+//		System.out.println("Rental saved with ID " + status);
+//		
+//	}
 }
 
 
