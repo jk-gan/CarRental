@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Calendar;
 import java.util.Vector;
 
 import com.carrental.controller.manager.Facade;
 import com.carrental.model.Car;
 import com.carrental.model.Customer;
+import com.carrental.model.Rental;
 
 /**
  * This class is the entry point of the system.
@@ -163,6 +165,33 @@ public class Console {
 		return customer;
 	}
 	
+	public Calendar showCheckAddRentalMenu() throws IOException {
+		Calendar calendar = Calendar.getInstance();
+		
+		showHeader();
+		System.out.println("Add Rental Menu");
+		System.out.print("Rental Start: ");
+
+		String date = reader.readLine();
+		
+		return customer;
+	}
+	
+	public Rental showAddRentalMenu() throws IOException {
+		Rental rental = new Rental();
+		
+		showHeader();
+		System.out.println("Add Rental Menu");
+		System.out.print("Name: ");
+		customer.setName(reader.readLine());
+		System.out.print("Identity Card No: ");
+		customer.setIdentityCardNo(reader.readLine());
+		System.out.print("Phone No: ");
+		customer.setPhoneNo(reader.readLine());
+		
+		return customer;
+	}
+	
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -303,6 +332,8 @@ public class Console {
 							System.out.println("Invalid option");
 						}
 					}
+				} else if(option == 3) {
+					
 				} else if(option == 4) {
 					break;
 				} else
