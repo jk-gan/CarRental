@@ -81,6 +81,25 @@ public class Console {
 		return car;
 	}
 	
+	public Car showEditCarMenu() throws IOException {
+		Car car = new Car();
+		
+		showHeader();
+		System.out.println("Edit Car Menu");
+		System.out.print("Car Id: ");
+		car.setCarID(Integer.parseInt(reader.readLine()));
+		System.out.print("Plate number: ");
+		car.setPlateNo(reader.readLine());
+		System.out.print("Model: ");
+		car.setModel(reader.readLine());
+		System.out.print("Price: ");
+		car.setPrice(Double.parseDouble(reader.readLine()));
+		System.out.print("Status: ");
+		car.setStatus(Integer.parseInt(reader.readLine()));
+		
+		return car;
+	}
+	
 	public String showSearchCarsMenu() throws IOException {
 		showHeader();
 		System.out.println("Search Car Menu");
@@ -127,6 +146,23 @@ public class Console {
 		
 	}
 	
+	public Customer showEditCustomerMenu() throws IOException {
+		Customer customer = new Customer();
+		
+		showHeader();
+		System.out.println("Edit Customer Menu");
+		System.out.print("Customer ID: ");
+		customer.setCustomerID(Integer.parseInt(reader.readLine()));
+		System.out.print("Name: ");
+		customer.setName(reader.readLine());
+		System.out.print("Identity Card No: ");
+		customer.setIdentityCardNo(reader.readLine());
+		System.out.print("Phone No: ");
+		customer.setPhoneNo(reader.readLine());
+		
+		return customer;
+	}
+	
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -143,7 +179,7 @@ public class Console {
 				if(option == 1) {
 					int carOption = 0;
 					
-					while(carOption != 3) {
+					while(carOption != 4) {
 						carOption = console.showCarManagementMenu();
 						
 						if(carOption == 1) {
@@ -165,7 +201,23 @@ public class Console {
 								}
 							}
 						} else if(carOption == 2) {
+							Car car = console.showEditCarMenu();
 							
+							try {
+								int status = facade.updateCar(car);
+								
+								if(status != 0) {
+									System.out.println("Successfully updated a new car with ID " + car.getCarID());
+								} else {
+									System.out.println("Failed to update an existing car with ID " + car.getCarID());
+								}
+							} catch (SQLException e) {
+								if(e instanceof SQLIntegrityConstraintViolationException) {
+									System.out.println("Car with plate number " + car.getPlateNo() + " already exists");
+								} else {
+									System.out.println("Exception occured: " + e.getMessage());
+								}
+							}
 						} else if(carOption == 3) {
 							String keyword = console.showSearchCarsMenu();
 							Vector<Car> cars = facade.searchCars(keyword);
@@ -182,7 +234,7 @@ public class Console {
 								System.out.println("No results found");
 							}
 						} else if(carOption == 4) {
-							
+							break;
 						} else {
 							System.out.println("Invalid option");
 						}
@@ -191,7 +243,7 @@ public class Console {
 				} else if(option == 2) {
 					int customerOption = 0;
 					
-					while(customerOption != 3) {
+					while(customerOption != 4) {
 						customerOption = console.showCustomerManagementMenu();
 						
 						if(customerOption == 1) {
@@ -213,7 +265,23 @@ public class Console {
 								}
 							}
 						} else if(customerOption == 2) {
+							Customer customer = console.showEditCustomerMenu();
 							
+							try {
+								int status = facade.updateCustomer(customer);
+								
+								if(status != 0) {
+									System.out.println("Successfully updated a new customer with ID " + customer.getCustomerID());
+								} else {
+									System.out.println("Failed to update an existing customer with ID " + customer.getCustomerID());
+								}
+							} catch (SQLException e) {
+								if(e instanceof SQLIntegrityConstraintViolationException) {
+									System.out.println("Car with identity card number " + customer.getIdentityCardNo() + " already exists");
+								} else {
+									System.out.println("Exception occured: " + e.getMessage());
+								}
+							}
 						} else if(customerOption == 3) {
 							String keyword = console.showSearchCustomerMenu();
 							Vector<Customer> customers = facade.searchCustomers(keyword);
@@ -229,10 +297,13 @@ public class Console {
 							} else {
 								System.out.println("No results found");
 							}
+						} else if(customerOption == 4) {
+							break;
+						} else {
+							System.out.println("Invalid option");
 						}
 					}
-					
-				} else if(option == 3) {
+				} else if(option == 4) {
 					break;
 				} else
 					System.out.println("Invalid option");
