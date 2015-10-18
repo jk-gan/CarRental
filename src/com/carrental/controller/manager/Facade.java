@@ -54,8 +54,8 @@ public class Facade implements AutoCloseable {
 //	
 //	PreparedStatement getPreparedStatement(String sql, int[] index) throws SQLException {
 //		return connection.prepareStatement(sql, index);
-//	}
-//	
+//	}	
+	
 	// employ VarArg
 	PreparedStatement getPreparedStatement(String sql, int... index) throws SQLException {
 		return connection.prepareStatement(sql, index);

@@ -18,9 +18,6 @@ import com.carrental.model.Car;
  * @since 1.0
  */
 class CarManager extends AbstractTableManager {
-	
-	private Facade facade;
-	
 	CarManager(Facade facade) {
 		super(facade);
 	}	
@@ -126,27 +123,6 @@ class CarManager extends AbstractTableManager {
 		
 		return car;
 	}
-	
-//	static void main(String[] args) throws ClassNotFoundException, SQLException {
-////		Car car = new Car();
-////		
-////		car.setPlateNo("XYZ 1020");
-////		car.setModel("Proton Kancil");
-////		car.setPrice(200);
-////		car.setStatus(0);
-////		
-////		CarManager carManager = new CarManager();
-////		int status = carManager.addCar(car);
-////		
-////		System.out.println("Car saved with ID " + status);
-//		
-//		CarManager carManager = new CarManager();
-//		Vector<Car> cars = carManager.searchCars("xyz");
-//		
-//		for(Car car : cars) {
-//			System.out.println(car);
-//		}	
-//	}
 }
 
 

@@ -18,9 +18,6 @@ import com.carrental.model.Customer;
  * @since 1.0
  */
 class CustomerManager extends AbstractTableManager {
-	
-	private Facade facade;
-	
 	CustomerManager(Facade facade) {
 		super(facade);
 	}	
@@ -123,26 +120,6 @@ class CustomerManager extends AbstractTableManager {
 		
 		return customer;
 	}
-	
-//	static void main(String[] args) throws ClassNotFoundException, SQLException {
-////		Customer customer = new Customer();
-////		
-////		customer.setName("Gan Jun Xian");
-////		customer.setIdentityCardNo("931225034133");
-////		customer.setPhoneNo("0123214569");
-////		
-////		CustomerManager customerManager = new CustomerManager();
-////		int status = customerManager.addCustomer(customer);
-//////		
-////		System.out.println("Customer saved with ID " + status);
-//		
-//		CustomerManager customerManager = new CustomerManager();
-//		Vector<Customer> customers = customerManager.searchCustomers("931225");
-//		
-//		for(Customer customer : customers) {
-//			System.out.println(customer);
-//		}
-//	}
 }
 
 
