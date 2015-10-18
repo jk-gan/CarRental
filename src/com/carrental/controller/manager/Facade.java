@@ -6,8 +6,11 @@ package com.carrental.controller.manager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Vector;
 
 import com.carrental.model.Car;
+import com.carrental.model.Customer;
 import com.carrental.model.Rental;
 
 /**
@@ -39,16 +42,56 @@ public class Facade implements AutoCloseable {
 		connection.close();
 	}
 	
+	// Get CarManager
 	private CarManager getCarManager() {
 		return (carManager == null ? carManager = new CarManager(this) : carManager );
 	}
 	
+	// Get CustomerManager
+	private CustomerManager getCustomerManager() {
+		return (customerManager == null ? customerManager = new CustomerManager(this) : customerManager );
+	}
+	
+	// Get RentalManager
+	private RentalManager getRentalManager() {
+		return (rentalManager == null ? rentalManager = new RentalManager(this) : rentalManager );
+	}
+	
 	public int addCar(Car car) throws SQLException {
 
-		return carManager.addCar(car);
+		return getCarManager().addCar(car);
 	}
 	
 	public int updateCar(Car car) throws SQLException {
-		return carManager.updateCar(car);
+		return getCarManager().updateCar(car);
 	}
+	
+	public Vector<Car> searchCars(String keyword) throws SQLException {
+		return getCarManager().searchCars(keyword);
+	}
+	
+	public Vector<Car> getAvailableCars(Calendar rentalStart) throws SQLException {
+		return getCarManager().getAvailableCars(rentalStart);
+	}
+	
+	public int addCustomer(Customer customer) throws SQLException {
+		return getCustomerManager().addCustomer(customer);
+	}
+	
+	public int updateCustomer(Customer customer) throws SQLException {
+		return getCustomerManager().updateCustomer(customer);
+	}
+	
+	public Vector<Customer> searchCustomers(String keyword) throws SQLException {
+		return getCustomerManager().searchCustomers(keyword);
+	}
+	
+	public Vector<Customer> getAvailableCustomers(Calendar rentalStart) throws SQLException {
+		return getCustomerManager().getAvailableCustomers(rentalStart);
+	}
+	
+	public int addRental(Rental rental) throws SQLException {
+		return getRentalManager().addRental(rental);
+	}
+	
 }
