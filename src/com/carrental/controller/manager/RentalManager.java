@@ -36,7 +36,7 @@ class RentalManager extends AbstractTableManager {
 		
 		if(!rsCheck.next()) {
 			// Create an SQL statement to be sent to the database
-			PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, ?)", 1);
+			PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, (SELECT Price * ? FROM Car WHERE CarID = ?))", 1);
 			
 			// Set the values for the SQL statement
 			ps.setInt(1, rental.getCarID());
@@ -44,6 +44,7 @@ class RentalManager extends AbstractTableManager {
 			ps.setTimestamp(3, toTimestamp(rental.getRentalStart()));
 			ps.setTimestamp(4, toTimestamp(rental.getRentalEnd()));
 			ps.setDouble(5, rental.getAmount());
+			ps.setInt(6, rental.getCarID());
 			
 			// Send the statement to database engine
 			status = ps.executeUpdate();

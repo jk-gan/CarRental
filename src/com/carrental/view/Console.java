@@ -185,9 +185,11 @@ public class Console {
 		rental.setCustomerID(Integer.parseInt(reader.readLine()));
 		System.out.print("Duration (days): ");
 		
-		rentalEnd.add(Calendar.DATE, Integer.parseInt(reader.readLine()));
+		int duration = Integer.parseInt(reader.readLine());
+		rentalEnd.add(Calendar.DATE, duration);
 		rental.setRentalStart(rentalStart);
 		rental.setRentalEnd(rentalEnd);
+		rental.setAmount(duration);
 		
 		return rental;
 	}
