@@ -52,6 +52,10 @@ public class Facade implements AutoCloseable {
 		return connection.prepareStatement(sql);
 	}
 	
+	PreparedStatement getPreparedStatement(String sql, int[] index) throws SQLException {
+		return connection.prepareStatement(sql, index);
+	}
+	
 	public void close() throws SQLException {
 		connection.commit();
 		connection.close();

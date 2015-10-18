@@ -3,7 +3,6 @@
  */
 package com.carrental.controller.manager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
