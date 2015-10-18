@@ -92,18 +92,8 @@ class CustomerManager extends AbstractTableManager {
 		
 		// Iterate until end of results
 		while(rs.next()) {
-			
-			// Read data from table
-			Customer customer = new Customer();
-			
-			// Set the value of customer properties
-			customer.setCustomerID(rs.getInt(1));
-			customer.setName(rs.getString(2));
-			customer.setIdentityCardNo(rs.getString(3));
-			customer.setPhoneNo(rs.getString(4));
-			
 			// Add customer to the vector
-			customers.add(customer);
+			customers.add(readCustomer(rs));
 		}
 		
 		return customers;
@@ -128,21 +118,23 @@ class CustomerManager extends AbstractTableManager {
 		
 		// Iterate until end of results
 		while(rs.next()) {
-			
-			// Read data from table
-			Customer customer = new Customer();
-			
-			// Set the value of car properties
-			customer.setCustomerID(rs.getInt(1));
-			customer.setName(rs.getString(2));
-			customer.setIdentityCardNo(rs.getString(3));
-			customer.setPhoneNo(rs.getString(4));
-			
-			// Add car to the vector
-			customers.add(customer);
+			customers.add(readCustomer(rs));
 		}
 		
 		return customers;
+	}
+	
+	private Customer readCustomer(ResultSet rs) throws SQLException {
+		// Read data from table
+		Customer customer = new Customer();
+		
+		// Set the value of car properties
+		customer.setCustomerID(rs.getInt(1));
+		customer.setName(rs.getString(2));
+		customer.setIdentityCardNo(rs.getString(3));
+		customer.setPhoneNo(rs.getString(4));
+		
+		return customer;
 	}
 	
 //	static void main(String[] args) throws ClassNotFoundException, SQLException {

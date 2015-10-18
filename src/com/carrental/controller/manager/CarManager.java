@@ -94,19 +94,7 @@ class CarManager extends AbstractTableManager {
 		
 		// Iterate until end of results
 		while(rs.next()) {
-			
-			// Read data from table
-			Car car = new Car();
-			
-			// Set the value of car properties
-			car.setCarID(rs.getInt(1));
-			car.setPlateNo(rs.getString(2));
-			car.setModel(rs.getString(3));
-			car.setPrice(rs.getDouble(4));
-			car.setStatus(rs.getInt(5));
-			
-			// Add car to the vector
-			cars.add(car);
+			cars.add(readCar(rs));
 		}
 		
 		return cars;
@@ -131,22 +119,25 @@ class CarManager extends AbstractTableManager {
 		
 		// Iterate until end of results
 		while(rs.next()) {
-			
-			// Read data from table
-			Car car = new Car();
-			
-			// Set the value of car properties
-			car.setCarID(rs.getInt(1));
-			car.setPlateNo(rs.getString(2));
-			car.setModel(rs.getString(3));
-			car.setPrice(rs.getDouble(4));
-			car.setStatus(rs.getInt(5));
-			
-			// Add car to the vector
-			cars.add(car);
+			cars.add(readCar(rs));
 		}
 		
 		return cars;
+	}
+	
+	private Car readCar(ResultSet rs) throws SQLException {
+
+		// Read data from table
+		Car car = new Car();
+		
+		// Set the value of car properties
+		car.setCarID(rs.getInt(1));
+		car.setPlateNo(rs.getString(2));
+		car.setModel(rs.getString(3));
+		car.setPrice(rs.getDouble(4));
+		car.setStatus(rs.getInt(5));
+		
+		return car;
 	}
 	
 //	static void main(String[] args) throws ClassNotFoundException, SQLException {
