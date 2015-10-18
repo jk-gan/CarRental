@@ -28,4 +28,8 @@ public class Facade {
 	public Connection getConnection() {
 		return connection;
 	}
+	
+	public void close() throws SQLException {
+		connection.close();
+	}
 }
