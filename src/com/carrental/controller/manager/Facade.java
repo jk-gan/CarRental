@@ -37,7 +37,7 @@ public class Facade implements AutoCloseable {
 		connection.setAutoCommit(false);
 	}
 	
-	public Connection getConnection() {
+	Connection getConnection() {
 		return connection;
 	}
 	
