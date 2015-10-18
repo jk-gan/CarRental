@@ -165,39 +165,49 @@ public class Console {
 		return customer;
 	}
 	
-	public Calendar showCheckAddRentalMenu() throws IOException {
+	public Calendar showCheckAddRentalMenu() throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		
 		showHeader();
 		System.out.println("Add Rental Menu");
 		System.out.print("Rental Start: ");
-
-		String date = reader.readLine();
 		
-		return customer;
+		return UserInterfaceUtility.parseCalendar(reader.readLine());
 	}
 	
-	public Rental showAddRentalMenu() throws IOException {
+	public Rental showAddRentalMenu(Calendar rentalStart) throws Exception {
 		Rental rental = new Rental();
+		Calendar rentalEnd = (Calendar) rentalStart.clone();
 		
+		System.out.println("Car ID: ");
+		rental.setCarID(Integer.parseInt(reader.readLine()));
+		System.out.println("Customer ID: ");
+		rental.setCustomerID(Integer.parseInt(reader.readLine()));
+		System.out.print("Duration (days): ");
+		
+		rentalEnd.add(Calendar.DATE, Integer.parseInt(reader.readLine()));
+		rental.setRentalStart(rentalStart);
+		rental.setRentalEnd(rentalEnd);
+		
+		return rental;
+	}
+	
+	public int showRentalManagementMenu() throws IOException {
 		showHeader();
-		System.out.println("Add Rental Menu");
-		System.out.print("Name: ");
-		customer.setName(reader.readLine());
-		System.out.print("Identity Card No: ");
-		customer.setIdentityCardNo(reader.readLine());
-		System.out.print("Phone No: ");
-		customer.setPhoneNo(reader.readLine());
-		
-		return customer;
+		System.out.println("rental Menu: ");
+		System.out.println("1. Add rental");
+		System.out.println("2. Back to main menu");
+		System.out.println();
+		System.out.print("Please select an option: ");
+
+		return Integer.parseInt(reader.readLine());
 	}
 	
 	/**
 	 * @param args
-	 * @throws IOException 
-	 * @throws SQLException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws IOException, SQLException {
+	public static void main(String[] args) throws Exception {
 		Console console = new Console();
 		int option = 0;
 		
@@ -333,7 +343,53 @@ public class Console {
 						}
 					}
 				} else if(option == 3) {
+					int rentalOption = 0;
 					
+					while(rentalOption != 2) {
+						rentalOption = console.showRentalManagementMenu();
+						if(rentalOption == 1) {
+							Calendar calendar = console.showCheckAddRentalMenu();
+							Vector<Car> cars = facade.getAvailableCars(calendar);
+							Vector<Customer> customers = facade.getAvailableCustomers(calendar);
+						
+							if(cars.size() != 0 && customers.size() != 0) {
+								System.out.println("\nCar ID\tCar Description");
+								
+								for(Car car : cars) {
+									System.out.println(car.getCarID() + "\t" + car);
+								}
+								
+								System.out.println("Customer\tName");
+								
+								for(Customer customer : customers) {
+									System.out.println(customer.getCustomerID() + "\t" + customer);
+								}
+								
+								Rental rental = console.showAddRentalMenu(calendar);
+								
+								try {
+									int status = facade.addRental(rental);
+									
+									if(status != 0) {
+										System.out.println("Successfully added a new rental with ID " + status);
+									} else {
+										System.out.println("Failed to add a new rental");
+									}
+								} catch (SQLException e) {
+									if(e instanceof SQLIntegrityConstraintViolationException) {
+										System.out.println("Failed to add a new rental");
+									} else {
+										System.out.println("Exception occured: " + e.getMessage());
+									}
+								}
+							} else {
+								System.out.println("No available cars or customers on the specified date.");
+							}
+						} else if(rentalOption == 2){
+							break;
+						} else
+							System.out.println("Invalid option");
+					}
 				} else if(option == 4) {
 					break;
 				} else
