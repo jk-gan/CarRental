@@ -19,15 +19,15 @@ import com.carrental.model.Customer;
  * @version 1.0
  * @since 1.0
  */
-public class CustomerManager {
+class CustomerManager {
 	
 	private Facade facade;
 	
-	public CustomerManager(Facade facade) {
+	CustomerManager(Facade facade) {
 		this.facade = facade;
 	}	
 	
-	public int addCustomer(Customer customer) throws SQLException {
+	int addCustomer(Customer customer) throws SQLException {
 		// Create a database connection
 		Connection connection = facade.getConnection();
 		
@@ -55,7 +55,7 @@ public class CustomerManager {
 		return status;
 	}
 	
-	public int updateCustomer(Customer customer) throws SQLException {
+	int updateCustomer(Customer customer) throws SQLException {
 		// Create a database connection
 		Connection connection = facade.getConnection();
 		
@@ -74,7 +74,7 @@ public class CustomerManager {
 		return status;
 	}
 	
-	public Vector<Customer> searchCustomers(String keyword) throws SQLException {
+	Vector<Customer> searchCustomers(String keyword) throws SQLException {
 		// Create a vector object to be returned
 		Vector<Customer> customers = new Vector<>();
 		
@@ -110,7 +110,7 @@ public class CustomerManager {
 		return customers;
 	}
 	
-	public Vector<Customer> getAvailableCustomers(Calendar rentalStart) throws SQLException {
+	Vector<Customer> getAvailableCustomers(Calendar rentalStart) throws SQLException {
 		// Create a vector object to be returned
 		Vector<Customer> customers = new Vector<>();
 		
@@ -146,7 +146,7 @@ public class CustomerManager {
 		return customers;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	static void main(String[] args) throws ClassNotFoundException, SQLException {
 //		Customer customer = new Customer();
 //		
 //		customer.setName("Gan Jun Xian");

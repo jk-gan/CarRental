@@ -19,16 +19,15 @@ import com.carrental.model.Car;
  * @version 1.0
  * @since 1.0
  */
-public class CarManager {
+class CarManager {
 	
 	private Facade facade;
 	
-	public CarManager(Facade facade) {
+	CarManager(Facade facade) {
 		this.facade = facade;
 	}	
 	
-	
-	public int addCar(Car car) throws SQLException {
+	int addCar(Car car) throws SQLException {
 		// Create a database connection
 		Connection connection = facade.getConnection();
 		
@@ -57,7 +56,7 @@ public class CarManager {
 		return status;
 	}
 	
-	public int updateCar(Car car) throws SQLException {
+	int updateCar(Car car) throws SQLException {
 		// Create a database connection
 		Connection connection = facade.getConnection();
 		
@@ -77,7 +76,7 @@ public class CarManager {
 		return status;
 	}
 	
-	public Vector<Car> searchCars(String keyword) throws SQLException {
+	Vector<Car> searchCars(String keyword) throws SQLException {
 		// Create a vector object to be returned
 		Vector<Car> cars = new Vector<>();
 		
@@ -114,7 +113,7 @@ public class CarManager {
 		return cars;
 	}
 	
-	public Vector<Car> getAvailableCars(Calendar rentalStart) throws SQLException {
+	Vector<Car> getAvailableCars(Calendar rentalStart) throws SQLException {
 		// Create a vector object to be returned
 		Vector<Car> cars = new Vector<>();
 		
@@ -151,7 +150,7 @@ public class CarManager {
 		return cars;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	static void main(String[] args) throws ClassNotFoundException, SQLException {
 //		Car car = new Car();
 //		
 //		car.setPlateNo("XYZ 1020");
