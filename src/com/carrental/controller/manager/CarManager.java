@@ -27,7 +27,7 @@ class CarManager extends AbstractTableManager {
 	
 	int addCar(Car car) throws SQLException {
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Car (PlateNo, Model, Price, Status) VALUES (?, ?, ?, ?)", new int[] {1});
+		PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Car (PlateNo, Model, Price, Status) VALUES (?, ?, ?, ?)", 1);
 		
 		// Set the values for the SQL statement
 		ps.setString(1, car.getPlateNo());

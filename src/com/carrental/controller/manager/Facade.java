@@ -47,12 +47,17 @@ public class Facade implements AutoCloseable {
 		// Set auto-commit to false
 		connection.setAutoCommit(false);
 	}
-	
-	PreparedStatement getPreparedStatement(String sql) throws SQLException {
-		return connection.prepareStatement(sql);
-	}
-	
-	PreparedStatement getPreparedStatement(String sql, int[] index) throws SQLException {
+//	
+//	PreparedStatement getPreparedStatement(String sql) throws SQLException {
+//		return connection.prepareStatement(sql);
+//	}
+//	
+//	PreparedStatement getPreparedStatement(String sql, int[] index) throws SQLException {
+//		return connection.prepareStatement(sql, index);
+//	}
+//	
+	// employ VarArg
+	PreparedStatement getPreparedStatement(String sql, int... index) throws SQLException {
 		return connection.prepareStatement(sql, index);
 	}
 	

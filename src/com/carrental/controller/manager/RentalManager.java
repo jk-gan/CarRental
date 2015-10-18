@@ -39,7 +39,7 @@ class RentalManager extends AbstractTableManager {
 		
 		if(!rsCheck.next()) {
 			// Create an SQL statement to be sent to the database
-			PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, ?)", new int[] {1});
+			PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, ?)", 1);
 			
 			// Set the values for the SQL statement
 			ps.setInt(1, rental.getCarID());
