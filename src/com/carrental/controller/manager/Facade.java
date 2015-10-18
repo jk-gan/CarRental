@@ -5,6 +5,7 @@ package com.carrental.controller.manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
@@ -47,8 +48,8 @@ public class Facade implements AutoCloseable {
 		connection.setAutoCommit(false);
 	}
 	
-	Connection getConnection() {
-		return connection;
+	PreparedStatement getPreparedStatement(String sql) throws SQLException {
+		return connection.prepareStatement(sql);
 	}
 	
 	public void close() throws SQLException {

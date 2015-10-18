@@ -28,11 +28,8 @@ class RentalManager extends AbstractTableManager {
 		// Status of execution
 		int status = 0;
 		
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement for checking availability
-		PreparedStatement psCheck = connection.prepareStatement("SELECT * FROM Rental WHERE (CarID = ? AND CustomerID = ?) AND ? BETWEEN RentalStart AND RentalEnd");
+		PreparedStatement psCheck = facade.getPreparedStatement("SELECT * FROM Rental WHERE (CarID = ? AND CustomerID = ?) AND ? BETWEEN RentalStart AND RentalEnd");
 		
 		// Set the requirements
 		psCheck.setInt(1, rental.getCarID());
@@ -43,7 +40,7 @@ class RentalManager extends AbstractTableManager {
 		
 		if(!rsCheck.next()) {
 			// Create an SQL statement to be sent to the database
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, ?)", new int[] {1});
+			PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Rental (CarID, CustomerID, RentalStart, Rentalend, Amount) VALUES (?, ?, ?, ?, ?)", new int[] {1});
 			
 			// Set the values for the SQL statement
 			ps.setInt(1, rental.getCarID());

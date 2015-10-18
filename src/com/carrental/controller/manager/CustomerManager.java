@@ -27,11 +27,8 @@ class CustomerManager extends AbstractTableManager {
 	}	
 	
 	int addCustomer(Customer customer) throws SQLException {
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer (Name, IdentityCardNo, PhoneNo) VALUES (?, ?, ?)", new int[] {1});
+		PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Customer (Name, IdentityCardNo, PhoneNo) VALUES (?, ?, ?)", new int[] {1});
 		
 		// Set the values for the SQL statement
 		ps.setString(1, customer.getName());
@@ -55,11 +52,8 @@ class CustomerManager extends AbstractTableManager {
 	}
 	
 	int updateCustomer(Customer customer) throws SQLException {
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Name = ?, IdentityCardNo = ?, PhoneNo = ? WHERE CustomerID = ?");
+		PreparedStatement ps = facade.getPreparedStatement("UPDATE Customer SET Name = ?, IdentityCardNo = ?, PhoneNo = ? WHERE CustomerID = ?");
 		
 		// Set the values for the SQL statement
 		ps.setString(1, customer.getName());
@@ -77,11 +71,8 @@ class CustomerManager extends AbstractTableManager {
 		// Create a vector object to be returned
 		Vector<Customer> customers = new Vector<>();
 		
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Customer WHERE UPPER(Name) LIKE ? OR UPPER(IdentityCardNo) LIKE ?");
+		PreparedStatement ps = facade.getPreparedStatement("SELECT * FROM Customer WHERE UPPER(Name) LIKE ? OR UPPER(IdentityCardNo) LIKE ?");
 		
 		// Set the values for the SQL statement
 		ps.setString(1, "%" + keyword.toUpperCase() + "%");
@@ -103,11 +94,8 @@ class CustomerManager extends AbstractTableManager {
 		// Create a vector object to be returned
 		Vector<Customer> customers = new Vector<>();
 		
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Customer WHERE CustomerID NOT IN (SELECT CustomerID FROM Rental WHERE ? BETWEEN RentalStart AND RentalEnd)");
+		PreparedStatement ps = facade.getPreparedStatement("SELECT * FROM Customer WHERE CustomerID NOT IN (SELECT CustomerID FROM Rental WHERE ? BETWEEN RentalStart AND RentalEnd)");
 		
 		// Set the values for the SQL statement
 		ps.setTimestamp(1, toTimestamp(rentalStart));

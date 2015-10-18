@@ -27,11 +27,8 @@ class CarManager extends AbstractTableManager {
 	}	
 	
 	int addCar(Car car) throws SQLException {
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("INSERT INTO Car (PlateNo, Model, Price, Status) VALUES (?, ?, ?, ?)", new int[] {1});
+		PreparedStatement ps = facade.getPreparedStatement("INSERT INTO Car (PlateNo, Model, Price, Status) VALUES (?, ?, ?, ?)", new int[] {1});
 		
 		// Set the values for the SQL statement
 		ps.setString(1, car.getPlateNo());
@@ -56,11 +53,8 @@ class CarManager extends AbstractTableManager {
 	}
 	
 	int updateCar(Car car) throws SQLException {
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("UPDATE Car SET PlateNo = ?, Model = ?, Price = ? , Status = ? WHERE CarID = ?");
+		PreparedStatement ps = facade.getPreparedStatement("UPDATE Car SET PlateNo = ?, Model = ?, Price = ? , Status = ? WHERE CarID = ?");
 		
 		// Set the values for the SQL statement
 		ps.setString(1, car.getPlateNo());
@@ -79,11 +73,8 @@ class CarManager extends AbstractTableManager {
 		// Create a vector object to be returned
 		Vector<Car> cars = new Vector<>();
 		
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Car WHERE UPPER(PlateNo) LIKE ? OR UPPER(Model) LIKE ?");
+		PreparedStatement ps = facade.getPreparedStatement("SELECT * FROM Car WHERE UPPER(PlateNo) LIKE ? OR UPPER(Model) LIKE ?");
 		
 		// Set the values for the SQL statement
 		ps.setString(1, "%" + keyword.toUpperCase() + "%");
@@ -104,11 +95,8 @@ class CarManager extends AbstractTableManager {
 		// Create a vector object to be returned
 		Vector<Car> cars = new Vector<>();
 		
-		// Create a database connection
-		Connection connection = facade.getConnection();
-		
 		// Create an SQL statement to be sent to the database
-		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Car WHERE CarID NOT IN (SELECT CarID FROM Rental WHERE ? BETWEEN RentalStart AND RentalEnd) AND Status = 0");
+		PreparedStatement ps = facade.getPreparedStatement("SELECT * FROM Car WHERE CarID NOT IN (SELECT CarID FROM Rental WHERE ? BETWEEN RentalStart AND RentalEnd) AND Status = 0");
 		
 		// Set the values for the SQL statement
 		ps.setTimestamp(1, toTimestamp(rentalStart));
