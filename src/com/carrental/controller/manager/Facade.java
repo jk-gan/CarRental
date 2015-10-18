@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.carrental.model.Car;
 import com.carrental.model.Rental;
 
 /**
@@ -36,5 +37,18 @@ public class Facade implements AutoCloseable {
 	
 	public void close() throws SQLException {
 		connection.close();
+	}
+	
+	private CarManager getCarManager() {
+		return (carManager == null ? carManager = new CarManager(this) : carManager );
+	}
+	
+	public int addCar(Car car) throws SQLException {
+
+		return carManager.addCar(car);
+	}
+	
+	public int updateCar(Car car) throws SQLException {
+		return carManager.updateCar(car);
 	}
 }
