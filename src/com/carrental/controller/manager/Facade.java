@@ -26,9 +26,19 @@ public class Facade implements AutoCloseable {
 	private CustomerManager customerManager;
 	private RentalManager rentalManager;
 	
-	public Facade() throws ClassNotFoundException, SQLException {
-		// Load the database driver to the program
-		Class.forName("org.apache.derby.jdbc.ClientDriver");
+	static {
+		try {
+			// Load the database driver to the program
+			Class.forName("org.apache.derby.jdbc.ClientDriver");
+		} catch (ClassNotFoundException e) {
+			// Terminate your program in case of failing to load the drive
+			System.err.println("Unable to load driver. The system will exit now.");
+			System.exit(0);
+		}
+	}
+	
+	public Facade() throws SQLException {
+		
 		
 		// Create a database connection
 		connection = DriverManager.getConnection("jdbc:derby://localhost:1527/CarRentalDB", "admin", "admin123");
