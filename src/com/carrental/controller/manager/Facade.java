@@ -32,6 +32,9 @@ public class Facade implements AutoCloseable {
 		
 		// Create a database connection
 		connection = DriverManager.getConnection("jdbc:derby://localhost:1527/CarRentalDB", "admin", "admin123");
+		
+		// Set auto-commit to false
+		connection.setAutoCommit(false);
 	}
 	
 	public Connection getConnection() {
@@ -39,6 +42,7 @@ public class Facade implements AutoCloseable {
 	}
 	
 	public void close() throws SQLException {
+		connection.commit();
 		connection.close();
 	}
 	
