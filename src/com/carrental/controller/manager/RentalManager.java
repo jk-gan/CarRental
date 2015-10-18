@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Calendar;
 
 import com.carrental.model.Rental;
 
@@ -39,7 +37,7 @@ class RentalManager extends AbstractTableManager {
 		// Set the requirements
 		psCheck.setInt(1, rental.getCarID());
 		psCheck.setInt(2, rental.getCustomerID());
-		psCheck.setTimestamp(3, new Timestamp(rental.getRentalEnd().getTimeInMillis()));
+		psCheck.setTimestamp(3, toTimestamp(rental.getRentalEnd()));
 		
 		ResultSet rsCheck = psCheck.executeQuery();
 		
@@ -50,8 +48,8 @@ class RentalManager extends AbstractTableManager {
 			// Set the values for the SQL statement
 			ps.setInt(1, rental.getCarID());
 			ps.setInt(2, rental.getCustomerID());
-			ps.setTimestamp(3, new Timestamp(rental.getRentalStart().getTimeInMillis()));
-			ps.setTimestamp(4, new Timestamp(rental.getRentalEnd().getTimeInMillis()));
+			ps.setTimestamp(3, toTimestamp(rental.getRentalStart()));
+			ps.setTimestamp(4, toTimestamp(rental.getRentalEnd()));
 			ps.setDouble(5, rental.getAmount());
 			
 			// Send the statement to database engine

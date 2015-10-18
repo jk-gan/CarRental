@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Vector;
 
@@ -124,7 +123,7 @@ class CarManager extends AbstractTableManager {
 		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Car WHERE CarID NOT IN (SELECT CarID FROM Rental WHERE ? BETWEEN RentalStart AND RentalEnd) AND Status = 0");
 		
 		// Set the values for the SQL statement
-		ps.setTimestamp(1, new Timestamp(rentalStart.getTimeInMillis()));
+		ps.setTimestamp(1, toTimestamp(rentalStart));
 		
 		
 		// Send the statement to database engine and retrieve the result

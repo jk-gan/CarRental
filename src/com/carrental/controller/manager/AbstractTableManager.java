@@ -3,6 +3,10 @@
  */
 package com.carrental.controller.manager;
 
+import java.util.Calendar;
+
+import java.sql.Timestamp;
+
 /**
  * This class is used as the template for table manager classes.
  * @author JKGan
@@ -14,5 +18,9 @@ abstract class AbstractTableManager {
 	
 	public AbstractTableManager(Facade facade) {
 		this.facade = facade;
+	}
+	
+	protected Timestamp toTimestamp(Calendar calendar) {
+		return new Timestamp(calendar.getTimeInMillis());
 	}
 }
